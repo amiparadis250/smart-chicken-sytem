@@ -2,25 +2,38 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1A1A1C;
+  --primary: #10B981;
+  --primary-light: #4EDEA3;
+  --primary-tint: rgba(16, 185, 129, 0.05);
+  --dark-green: #003824;
+  --gray: #71717A;
+  --dark-bg: rgba(18, 18, 20, 0.9);
+  --border: #E5E2E3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-tint: var(--primary-tint);
+  --color-dark-green: var(--dark-green);
+  --color-gray: var(--gray);
+  --color-dark-bg: var(--dark-bg);
+  --color-border: var(--border);
+  --font-sans: var(--font-bricolage);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121214;
+    --foreground: #E5E2E3;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-bricolage), Arial, Helvetica, sans-serif;
 }

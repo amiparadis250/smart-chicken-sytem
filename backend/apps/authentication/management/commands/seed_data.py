@@ -13,19 +13,40 @@ from apps.alerts.models import Alert
 class Command(BaseCommand):
     help = 'Seed database with demo data'
 
+    def add_arguments(self, parser):
+        parser.add_argument('--flush', action='store_true', help='Clear existing data before seeding')
+
     def handle(self, *args, **options):
+        seed_emails = ['admin@scfs.tech', 'jean@farm.rw', 'alice@farm.rw', 'patrick@farm.rw']
+
+        if options['flush']:
+            self.stdout.write('Flushing existing seed data...')
+            seed_users = User.objects.filter(email__in=seed_emails)
+            seed_farms = Farm.objects.filter(owner__in=seed_users)
+            Alert.objects.filter(farm__in=seed_farms).delete()
+            Detection.objects.filter(farm__in=seed_farms).delete()
+            SensorData.objects.filter(farm__in=seed_farms).delete()
+            Device.objects.filter(farm__in=seed_farms).delete()
+            seed_farms.delete()
+            seed_users.delete()
+
         self.stdout.write('Seeding database...')
 
         # Users
-        admin = User.objects.create_superuser(
+        admin, created = User.objects.get_or_create(
             email='admin@scfs.tech',
-            username='admin',
-            first_name='Admin',
-            last_name='SCFS',
-            password='admin123',
-            farm_name='SCFS HQ',
-            is_farmer=False,
+            defaults={
+                'username': 'admin',
+                'first_name': 'Admin',
+                'last_name': 'SCFS',
+                'farm_name': 'SCFS HQ',
+                'is_farmer': False,
+                'is_staff': True,
+                'is_superuser': True,
+            }
         )
+        admin.set_password('admin123')
+        admin.save()
 
         farmers = []
         farmer_data = [
@@ -34,15 +55,18 @@ class Command(BaseCommand):
             ('patrick@farm.rw', 'patrick', 'Patrick', 'Niyonzima', 'Niyonzima Livestock'),
         ]
         for email, username, first, last, farm_name in farmer_data:
-            user = User.objects.create_user(
+            user, created = User.objects.get_or_create(
                 email=email,
-                username=username,
-                first_name=first,
-                last_name=last,
-                password='farmer123',
-                farm_name=farm_name,
-                phone_number=f'+25078{random.randint(1000000, 9999999)}',
+                defaults={
+                    'username': username,
+                    'first_name': first,
+                    'last_name': last,
+                    'farm_name': farm_name,
+                    'phone_number': f'+25078{random.randint(1000000, 9999999)}',
+                }
             )
+            user.set_password('farmer123')
+            user.save()
             farmers.append(user)
 
         self.stdout.write(f'  Created {len(farmers) + 1} users')

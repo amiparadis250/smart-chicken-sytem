@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Nav */}
-      <nav className="flex items-center justify-between px-8 py-5 border-b border-border/50 sticky top-0 glass z-50 animate-[slideDown_0.5s_ease-out]">
+      <nav className="flex items-center justify-between px-8 py-5 border-b border-border/50 sticky top-0 bg-[#09090b] z-50 animate-[slideDown_0.5s_ease-out]">
         <div className="flex items-center gap-2.5 animate-[fadeIn_0.8s_ease-out]">
           <span className="text-3xl animate-[bounce_2s_ease-in-out_infinite]">🐔</span>
           <span className="text-foreground font-bold text-xl">SCFS</span>

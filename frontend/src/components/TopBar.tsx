@@ -9,7 +9,7 @@ export default function TopBar() {
   const { data: dashboard } = useGetDashboardQuery();
 
   return (
-    <header className="h-14 bg-[#121214] border-b border-border flex items-center justify-between px-5 sticky top-0 z-10">
+    <header className="h-14 bg-[#121214] border-b border-border flex items-center justify-between px-5 sticky top-0 z-50">
       <div className="flex items-center gap-4">
         <button className="text-gray hover:text-foreground"><Menu size={20} /></button>
         <div className="flex items-center gap-2 bg-card border border-card-border rounded-lg px-3 py-1.5 cursor-pointer hover:border-primary/30 transition-colors">

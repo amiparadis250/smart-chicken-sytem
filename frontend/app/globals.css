@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1A1A1C;
+  --background: #09090b;
+  --foreground: #f4f4f5;
   --primary: #10B981;
   --primary-light: #4EDEA3;
   --primary-tint: rgba(16, 185, 129, 0.05);
   --dark-green: #003824;
-  --gray: #71717A;
+  --gray: #a1a1aa;
   --dark-bg: rgba(18, 18, 20, 0.9);
-  --border: #E5E2E3;
+  --border: #1c1c20;
+  --card: #131316;
+  --card-border: #1f1f24;
+  --glow: rgba(16, 185, 129, 0.15);
 }
 
 @theme inline {
@@ -22,18 +25,83 @@
   --color-gray: var(--gray);
   --color-dark-bg: var(--dark-bg);
   --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-glow: var(--glow);
   --font-sans: var(--font-bricolage);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121214;
-    --foreground: #E5E2E3;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-bricolage), Arial, Helvetica, sans-serif;
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3e; }
+
+/* Glow card hover */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+.glow-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #10B981 0%, #4EDEA3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero glow */
+.hero-glow {
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+}
+
+/* Section alt bg */
+.section-alt {
+  background: linear-gradient(180deg, #0c0c0e 0%, #09090b 100%);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(9, 9, 11, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Animations */
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }

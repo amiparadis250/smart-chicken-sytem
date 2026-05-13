@@ -140,7 +140,7 @@ SIMPLE_JWT = {
 # CORS
 CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
-    default='http://localhost:3000',
+    default='http://localhost:3000,https://smart-chicken-sytem.vercel.app',
     cast=Csv()
 )
 CORS_ALLOW_CREDENTIALS = True
